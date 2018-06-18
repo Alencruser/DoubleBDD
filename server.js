@@ -16,6 +16,13 @@ connection.connect(function(err){
     console.log('Connected to the MySQL server.');    
 });
 
+connection.end(function(err){
+    if (err){
+        return console.log('error: ' + err.message);        
+    }
+    console.log('Close the database connection.');    
+});
+
 const server = app.listen(3000, (req,res) => 
 console.log('Server Ready')
 );
