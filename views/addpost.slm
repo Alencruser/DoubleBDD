@@ -14,11 +14,12 @@ html
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Retour</button>
         </form>
     </nav>
+
     div class="container"
       form action="/addpost" method="POST"
-        input type="text"  placeholder="Titre" name="titre"
+        input class="form-control" type="text"  placeholder="Titre" name="titre"
         br
-        textarea  placeholder="Corps de l'article" name="corps"
+        textarea class="form-control" placeholder="Corps de l'article" name="corps"
         br
         input type="submit"
    
