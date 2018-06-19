@@ -15,7 +15,7 @@ html
         </form>
     </nav>
     div class="container"
-      form action="save_post"
+      form action="/addpost" method="POST"
         input type="text"  placeholder="Titre" name="titre"
         br
         textarea  placeholder="Corps de l'article" name="corps"

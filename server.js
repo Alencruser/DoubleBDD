@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const mysql = require('mysql');
+const bodyparser = require ('body-parser');
 
 // Création de la connexion de mysql avec le site
 let connection = mysql.createConnection({
@@ -9,7 +10,8 @@ let connection = mysql.createConnection({
     password: 'toor',
     database: 'DoubleBDD'
 });
-
+//Utilisation de body-parser par le serveur
+app.use(bodyparser.urlencoded({extended: false}));
 // Définition du moteur de template
 app.set('view engine', 'slm');
 
@@ -29,6 +31,7 @@ app.get("/", function (req, res) {
             res.render("index",{listPost: results});
         } else {
             console.log("Pas de données");
+            res.render('index');
         }
         //connection.end();
     });
@@ -37,9 +40,17 @@ app.get("/addpost", function (req, res) {
     res.render("addpost");
 });
 
-app.get("/save_post",function(req,res){
-    console.log(req.body);
-    res.redirect("/");
+app.post("/addpost",function(req,res){
+    console.log(req.body.titre);
+    console.log(req.body.corps);
+    let sqlCreatePost = 'INSERT INTO Post (titre,corps,date_Post,id_User) VALUES("'+req.body.titre+'","'+req.body.corps+'",NOW(),1)';
+    connection.query(sqlCreatePost,function(error,results,fields){
+        if(error){
+            console.log(error);
+            return;
+        }
+        res.redirect("/");
+    })
 })
 
 // Ouverture de la connexion mysql
