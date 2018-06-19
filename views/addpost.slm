@@ -17,9 +17,9 @@ html
 
     div class="container"
       form action="save_post"
-        input type="text"  placeholder="Titre" name="titre"
+        input class="form-control" type="text"  placeholder="Titre" name="titre"
         br
-        textarea  placeholder="Corps de l'article" name="corps"
+        textarea class="form-control" placeholder="Corps de l'article" name="corps"
         br
         input type="submit"
    
