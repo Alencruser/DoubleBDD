@@ -20,7 +20,7 @@ app.get("/", function (req, res) {
     connection.query(sqlListPost, function select(error, results, fields) {
         if (error) {
             console.log(error);
-            connection.end();
+            //connection.end();
             return;
         }
         if (results.length > 0) {
@@ -30,7 +30,7 @@ app.get("/", function (req, res) {
         } else {
             console.log("Pas de données");
         }
-        connection.end();
+        //connection.end();
     });
 });
 app.get("/addpost", function (req, res) {
