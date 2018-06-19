@@ -8,7 +8,7 @@ html
   body class="container"
   <nav class="navbar navbar-light bg-light">
     <a class="navbar-brand"></a>
-    <form class="form-inline">
+    <form class="form-inline" action="addpost">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Ajouter Post</button>
   </form>
 </nav> 
