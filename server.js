@@ -10,15 +10,17 @@ let connection = mysql.createConnection({
     password: 'toor',
     database: 'DoubleBDD'
 });
+
 //Utilisation de body-parser par le serveur
 app.use(bodyparser.urlencoded({extended: false}));
+
 // Définition du moteur de template
 app.set('view engine', 'slm');
 
-// Définition des routes
+// Définition de la route racine
 app.get("/", function (req, res) {
     //recup de la liste des posts
-    let sqlListPost = "SELECT titre,corps,date_Post FROM Post";
+    let sqlListPost = "SELECT titre,corps,date_Post,id_Post FROM Post";
     connection.query(sqlListPost, function select(error, results, fields) {
         if (error) {
             console.log(error);
@@ -26,8 +28,7 @@ app.get("/", function (req, res) {
             return;
         }
         if (results.length > 0) {
-            console.log(results);
-            
+            console.log(results);            
             res.render("index",{listPost: results});
         } else {
             console.log("Pas de données");
@@ -36,22 +37,39 @@ app.get("/", function (req, res) {
         //connection.end();
     });
 });
+
+    // Suppression des posts
+    app.post("/", function (req,res){
+        console.log('reponse au log:' + req.body.del);
+        let sqlDeletePost = 'DELETE FROM Post WHERE id_Post=' + req.body.del + ';';
+        connection.query(sqlDeletePost, function(error){
+        if (error){
+            console.log(error);
+            return;        
+        }
+        res.redirect("/");
+        });
+    });
+
+// Définition de la route 'ajout post'
 app.get("/addpost", function (req, res) {
     res.render("addpost");
 });
 
-app.post("/addpost",function(req,res){
-    console.log(req.body.titre);
-    console.log(req.body.corps);
-    let sqlCreatePost = 'INSERT INTO Post (titre,corps,date_Post,id_User) VALUES("'+req.body.titre+'","'+req.body.corps+'",NOW(),1)';
-    connection.query(sqlCreatePost,function(error,results,fields){
-        if(error){
-            console.log(error);
-            return;
-        }
-        res.redirect("/");
-    })
-})
+    // Ajout d un post
+    app.post("/addpost",function(req,res){
+        console.log(req.body.titre);
+        console.log(req.body.corps);
+        let sqlCreatePost = 'INSERT INTO Post (titre,corps,date_Post,id_User) VALUES("'+req.body.titre+'","'+req.body.corps+'",NOW(),1)';
+        connection.query(sqlCreatePost,function(error,results,fields){
+            if(error){
+                console.log(error);
+                return;
+            }
+            res.redirect("/");
+        });
+    });
+
 
 // Ouverture de la connexion mysql
 /*connection.connect(function (err) {
