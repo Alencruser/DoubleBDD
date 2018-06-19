@@ -8,7 +8,11 @@ let connection = mysql.createConnection({
     password: 'toor',
     database: 'DoubleBDD'
 });
+app.set('view engine', 'slm');
 
+app.get("/", function (req, res) {
+    res.render("index");
+});
 connection.connect(function(err){
     if (err){
         return console.error('error: ' + err.message);
