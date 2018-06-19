@@ -37,6 +37,11 @@ app.get("/addpost", function (req, res) {
     res.render("addpost");
 });
 
+app.get("/save_post",function(req,res){
+    console.log(req.body);
+    res.redirect("/");
+})
+
 // Ouverture de la connexion mysql
 /*connection.connect(function (err) {
     if (err) {
