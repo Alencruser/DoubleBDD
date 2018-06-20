@@ -23,7 +23,7 @@ html
               <div class="card-body"><blockquote class="blockquote mb-0">
               <p>${item.corps}</p>
               </blockquote></div>            
-              <button name='del' class="btn btn-outline-success my-2 my-sm-0" type="submit" value=${item.id_Post}>Supprimer Post ${item.id_Post}</button>
+              <button name='del' class="btn btn-outline-success my-2 my-sm-0" type="submit" value=${item.id_Post}>Supprimer Post</button>
               </div>
 
 
