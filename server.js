@@ -63,7 +63,7 @@ app.get("/addpost", function (req, res) {
 });
 
 // Ajout d un post
-app.post("/addpost", function (req, res) {
+app.post("/addpost",exports.ajoutpost = function (req, res) {
     /*console.log(req.body.titre);
     console.log(req.body.corps);*/
     let sqlCreatePost = 'INSERT INTO Post (titre,corps,date_Post,id_User) VALUES("' + req.body.titre + '","' + req.body.corps + '",NOW(),1)';
