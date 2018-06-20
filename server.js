@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const mysql = require('mysql');
-const bodyparser = require ('body-parser');
+const bodyparser = require('body-parser');
 
 // Création de la connexion de mysql avec le site
 let connection = mysql.createConnection({
@@ -12,7 +12,9 @@ let connection = mysql.createConnection({
 });
 
 //Utilisation de body-parser par le serveur
-app.use(bodyparser.urlencoded({extended: false}));
+app.use(bodyparser.urlencoded({
+    extended: false
+}));
 
 // Définition du moteur de template
 app.set('view engine', 'slm');
@@ -28,8 +30,10 @@ app.get("/", function (req, res) {
             return;
         }
         if (results.length > 0) {
-            console.log(results);            
-            res.render("index",{listPost: results});
+            //console.log(results);
+            res.render("index", {
+                listPost: results
+            });
         } else {
             console.log("Pas de données");
             res.render('index');
@@ -38,38 +42,56 @@ app.get("/", function (req, res) {
     });
 });
 
-    // Suppression des posts
-    app.post("/", function (req,res){
-        console.log('reponse au log:' + req.body.del);
-        let sqlDeletePost = 'DELETE FROM Post WHERE id_Post=' + req.body.del + ';';
-        connection.query(sqlDeletePost, function(error){
-        if (error){
+// Suppression des posts
+app.post("/", function (req, res) {
+    console.log('del: ' + req.body.del);
+    console.log('aff:' +req.body.display);
+    let sqlDeletePost = 'DELETE FROM Post WHERE id_Post=' + req.body.del + ';';
+    connection.query(sqlDeletePost, function (error) {
+        if (error) {
             console.log(error);
-            return;        
+            return;
         }
         res.redirect("/");
-        });
     });
+});
 
 // Définition de la route 'ajout post'
 app.get("/addpost", function (req, res) {
     res.render("addpost");
 });
 
-    // Ajout d un post
-    app.post("/addpost",function(req,res){
-        console.log(req.body.titre);
-        console.log(req.body.corps);
-        let sqlCreatePost = 'INSERT INTO Post (titre,corps,date_Post,id_User) VALUES("'+req.body.titre+'","'+req.body.corps+'",NOW(),1)';
-        connection.query(sqlCreatePost,function(error,results,fields){
-            if(error){
-                console.log(error);
-                return;
-            }
-            res.redirect("/");
-        });
+// Ajout d un post
+app.post("/addpost", function (req, res) {
+    /*console.log(req.body.titre);
+    console.log(req.body.corps);*/
+    let sqlCreatePost = 'INSERT INTO Post (titre,corps,date_Post,id_User) VALUES("' + req.body.titre + '","' + req.body.corps + '",NOW(),1)';
+    connection.query(sqlCreatePost, function (error, results, fields) {
+        if (error) {
+            console.log(error);
+            return;
+        }
+        res.redirect("/");
     });
+});
 
+//Si on clique sur un post, on l'affiche dans la nouvelle page "read"
+app.get('/read/:id',function (req, res){
+    let sqlAffPost = "SELECT titre,corps,DATE_FORMAT(date_Post,'%d/%m/%Y') AS date_formated,id_Post FROM Post WHERE id_Post = "+req.params.id;
+    connection.query(sqlAffPost, function select(error, results, fields) {
+        if (error) {
+            console.log(error);
+            return;
+        }
+        if (results.length > 0) {
+            console.log(results);
+            res.render("read", {post: results});
+        } else {
+            console.log("Pas de données");
+            res.render('index');
+        }
+    });
+});
 
 // Ouverture de la connexion mysql
 /*connection.connect(function (err) {
