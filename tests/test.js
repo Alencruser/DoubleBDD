@@ -1,8 +1,18 @@
 var expect= require('chai').expect;
-var ajoutpost= require('../ajoutpost');
+var mysql=require('mysql');
+var addpost=require('../addpost');
 
-describe('ajoutpost()',function(){
-	it('should add a post',function(){
-		//ecrire les test ici 
+describe('',function(){
+	it('should receive an input',function(){
+
+		let connection = mysql.createConnection({
+    		host: 'localhost',
+    		user: 'root',
+    		password: 'toor',
+    		database: 'DoubleBDD'
+		});
+		var success = "authenticated";
+		var testing = addpost(connection.state);
+		expect(success).to.be.equal(testing);
 	})
 })
