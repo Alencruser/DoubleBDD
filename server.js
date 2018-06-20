@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
 const mysql = require('mysql');
-const bodyparser = require('body-parser');
+const bodyparser = require ('body-parser');
+app.use(express.static('public'));
 
 // Création de la connexion de mysql avec le site
 let connection = mysql.createConnection({
