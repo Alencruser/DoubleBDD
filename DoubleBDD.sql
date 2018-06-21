@@ -17,3 +17,4 @@ CREATE TABLE Commentaire(
 );
 
 ALTER TABLE Commentaire ADD CONSTRAINT FOREIGN KEY (id_Post) REFERENCES Post (id_Post);
+
