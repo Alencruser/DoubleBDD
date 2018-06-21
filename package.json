@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-   "directories": {
-     "test": "test"
-    },
+  "directories": {
+    "test": "test"
+  },
   "scripts": {
     "test": "mocha"
   },

@@ -1,18 +1,11 @@
 var expect= require('chai').expect;
 var mysql=require('mysql');
-var addpost=require('../addpost');
+var gimme=require('../server.js');
 
-describe('',function(){
-	it('should receive an input',function(){
-
-		let connection = mysql.createConnection({
-    		host: 'localhost',
-    		user: 'root',
-    		password: 'toor',
-    		database: 'DoubleBDD'
-		});
+describe('Database connect',function(){
+	it('should see authenticated',function(){
 		var success = "authenticated";
-		var testing = addpost(connection.state);
+		var testing = gimme._connection.state ;
 		expect(success).to.be.equal(testing);
 	})
 })

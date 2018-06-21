@@ -62,7 +62,8 @@ app.get("/addpost", function (req, res) {
 });
 
 // Ajout d un post
-app.post("/addpost", exports.addpost = function (req, res) {
+
+ app.post("/addpost", function (req, res) {
     /*console.log(req.body.titre);
     console.log(req.body.corps);*/
     let sqlCreatePost = 'INSERT INTO Post (titre,corps,date_Post,id_User) VALUES("' + req.body.titre + '","' + req.body.corps + '",NOW(),1)';
@@ -70,12 +71,17 @@ app.post("/addpost", exports.addpost = function (req, res) {
         if (error) {
             console.log(error);
             return;
-        }
-        console.log(connection.state);
+        } 
+//test en cours pour definir l'etat de etat par connection.state à ce moment de la fonction !
         res.redirect("/");
     });
 });
 
+  var gimme =  connection.query(function(error, results, fields){
+        return connection.state;
+    })
+ 
+ module.exports = gimme;
 //Si on clique sur un post, on l'affiche dans la nouvelle page "read"
 app.get('/read/:id',function (req, res){
     let sqlAffPost = "SELECT titre,corps,DATE_FORMAT(date_Post,'%d/%m/%Y') AS date_formated,id_Post FROM Post WHERE id_Post = "+req.params.id;
