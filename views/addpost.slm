@@ -21,7 +21,7 @@ html
         form action="/addpost" method="POST"
           input class="form-control" type="text"  placeholder="Titre" name="titre"
           br
-          textarea class="form-control" placeholder="Corps de l'article" name="corps"
+          textarea class="form-control" placeholder="Corps de l'article" maxlength="8000" name="corps"
           br
           input type="submit"
    

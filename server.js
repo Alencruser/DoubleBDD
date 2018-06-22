@@ -22,7 +22,7 @@ app.set('view engine', 'slm');
 // Définition de la route racine
 app.get("/", function (req, res) {
     //recup de la liste des posts
-    let sqlListPost = "SELECT titre,corps,DATE_FORMAT(date_Post,'%d/%m/%Y') AS date_formated,id_Post FROM Post ORDER BY id_Post DESC LIMIT 10";
+    let sqlListPost = "SELECT titre,corps,DATE_FORMAT(date_Post,'%d/%m/%Y') AS date_formated,id_Post FROM Post ORDER BY id_Post DESC";
     connection.query(sqlListPost, function select(error, results, fields) {
         if (error) {
             console.log(error);
