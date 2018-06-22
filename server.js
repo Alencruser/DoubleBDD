@@ -5,6 +5,8 @@ const bodyparser = require('body-parser');
 app.use(express.static('public'));
 
 // Création de la connexion de mysql avec le site
+// commande pour accéder à la base de donnée sur le terminal : mysql -h sql7.freemysqlhosting.net -u sql7244047 -p
+// mettre le password ci-dessous lorsque l'on nous demande un mot de passe
 let connection = mysql.createConnection({
     host: 'sql7.freemysqlhosting.net',
     user: 'sql7244047',
