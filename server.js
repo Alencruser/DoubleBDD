@@ -115,6 +115,7 @@ app.post("/addcomment/:id", function (req, res) {
 
 //Si on clique sur un post, on l'affiche dans la nouvelle page "read"
 app.get('/read/:id', function (req, res) {
+    console.log(req.params);
     let sqlAffPost = "SELECT titre,corps,DATE_FORMAT(date_Post,'%d/%m/%Y') AS date_formated,id_Post FROM Post WHERE id_Post = " + req.params.id;
     let sqlAffComm = "SELECT corps_Commentaire,DATE_FORMAT(date_Commentaire,'%d/%m/%Y') AS datec_formated, id_Commentaire FROM Commentaire WHERE id_Post = " + req.params.id;
     connection.query(sqlAffPost, function select(error, resultp, fields) {
