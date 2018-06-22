@@ -47,13 +47,20 @@ app.post("/", function (req, res) {
     console.log('del: ' + req.body.del);
     console.log('addcomment: ' + req.body.addcomment);
     if (req.body.del) {
+        let sqlDeleteComm = 'DELETE FROM Commentaire WHERE id_Post=' + req.body.del + ';';
         let sqlDeletePost = 'DELETE FROM Post WHERE id_Post=' + req.body.del + ';';
-        connection.query(sqlDeletePost, function (error) {
+        connection.query(sqlDeleteComm, function (error) {
             if (error) {
                 console.log(error);
                 return;
             }
-            res.redirect("/");
+            connection.query(sqlDeletePost, function (error) {
+                if (error) {
+                    console.log(error);
+                    return;
+                }
+                res.redirect("/");
+            });
         });
     }
 });
@@ -65,7 +72,7 @@ app.get("/addpost", function (req, res) {
 
 // Ajout d un post
 
- app.post("/addpost", function (req, res) {
+app.post("/addpost", function (req, res) {
     /*console.log(req.body.titre);
     console.log(req.body.corps);*/
     let sqlCreatePost = 'INSERT INTO Post (titre,corps,date_Post,id_User) VALUES("' + req.body.titre + '","' + req.body.corps + '",NOW(),1)';
@@ -73,33 +80,35 @@ app.get("/addpost", function (req, res) {
         if (error) {
             console.log(error);
             return;
-        } 
-//test en cours pour definir l'etat de etat par connection.state à ce moment de la fonction !
+        }
+        //test en cours pour definir l'etat de etat par connection.state à ce moment de la fonction !
         res.redirect("/");
     });
 });
 
 app.get("/addcomment/:id", function (req, res) {
-    console.log (req.params.id)
-    res.render("addcomment",{id:req.params.id});
+    console.log(req.params.id)
+    res.render("addcomment", {
+        id: req.params.id
+    });
 });
 
 app.post("/addcomment/:id", function (req, res) {
-    let sqlAddComm = 'INSERT INTO Commentaire (corps_Commentaire, date_Commentaire, id_Post, id_User) VALUES ("'+req.body.corps+'",NOW(),'+req.params.id+',1);'
+    let sqlAddComm = 'INSERT INTO Commentaire (corps_Commentaire, date_Commentaire, id_Post, id_User) VALUES ("' + req.body.corps + '",NOW(),' + req.params.id + ',1);'
     connection.query(sqlAddComm, function (error, results, fields) {
         if (error) {
             console.log(error);
             return;
         }
-        res.redirect("/read/"+req.params.id);
+        res.redirect("/read/" + req.params.id);
     });
 });
 
-  var gimme =  connection.query(function(error, results, fields){
-        return connection.state;
-    })
- 
- module.exports = gimme;
+var gimme = connection.query(function (error, results, fields) {
+    return connection.state;
+})
+
+module.exports = gimme;
 //Si on clique sur un post, on l'affiche dans la nouvelle page "read"
 app.get('/read/:id', function (req, res) {
     let sqlAffPost = "SELECT titre,corps,DATE_FORMAT(date_Post,'%d/%m/%Y') AS date_formated,id_Post FROM Post WHERE id_Post = " + req.params.id;
