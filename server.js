@@ -6,10 +6,10 @@ app.use(express.static('public'));
 
 // Création de la connexion de mysql avec le site
 let connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'toor',
-    database: 'DoubleBDD'
+    host: 'sql7.freemysqlhosting.net',
+    user: 'sql7244047',
+    password: 'T83wmYfmfZ',
+    database: 'sql7244047'
 });
 //Utilisation de body-parser par le serveur
 app.use(bodyparser.urlencoded({
