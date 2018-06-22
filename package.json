@@ -2,14 +2,11 @@
   "name": "doublebdd",
   "version": "1.0.0",
   "description": "",
-<<<<<<< HEAD
   "main": "server.js",
-=======
-  "main": "index.js",
   "directories": {
     "test": "test"
   },
->>>>>>> d2bcb74ce2693f959c726eff438962377bc4d8f9
+
   "scripts": {
     "test": "mocha"
   },
