@@ -94,7 +94,7 @@ app.post("/addcomment/:id", function (req, res) {
         res.redirect("/read/"+req.params.id);
     });
 });
-
+ //Test unitaire 
   var gimme =  connection.query(function(error, results, fields){
         return connection.state;
     })
