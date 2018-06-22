@@ -24,7 +24,7 @@ html
                 <div class="card-footer text-right">${this.post[0].date_formated}</div>
                 </div>
             form action="/addcomment/${this.post[0].id_Post}"
-                <button name='addcomment' class="btn btn-outline-success my-2 my-sm-0" type="submit">Ajouter Commentaire</button>
+                <button name='addcomment' class="btn btn-success my-2 my-sm-0" type="submit">Ajouter Commentaire</button>
                 <p></p>
                 <h4>Commentaires:</h4>
             -if (this.comments)
