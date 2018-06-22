@@ -104,11 +104,13 @@ app.post("/addcomment/:id", function (req, res) {
     });
 });
 
-var gimme = connection.query(function (error, results, fields) {
-    return connection.state;
-})
+ //Test unitaire 
+  var gimme =  connection.query(function(error, results, fields){
+        return connection.state;
+    })
+ 
+ module.exports = gimme;
 
-module.exports = gimme;
 //Si on clique sur un post, on l'affiche dans la nouvelle page "read"
 app.get('/read/:id', function (req, res) {
     let sqlAffPost = "SELECT titre,corps,DATE_FORMAT(date_Post,'%d/%m/%Y') AS date_formated,id_Post FROM Post WHERE id_Post = " + req.params.id;
